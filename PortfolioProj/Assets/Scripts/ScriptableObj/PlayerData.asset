@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797a994cf7e086a4c91c963ac65f04ef, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  walkSpeed: 7
-  crouchSpeed: 4
+  walkSpeed: 5
+  crouchSpeed: 3
   runSpeed: 10
   gravity: -9.82
   isSneaking: 0
-  isCrouching: 1
-  isRunning: 1
-  isGrounded: 0
+  isCrouching: 0
+  isRunning: 0
+  isGrounded: 1

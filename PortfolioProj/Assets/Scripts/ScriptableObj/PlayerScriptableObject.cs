@@ -11,8 +11,8 @@ public class PlayerScriptableObject : ScriptableObject
    public float runSpeed;
    public float gravity;
    
-   public bool isSneaking;
-   public bool isCrouching;
-   public bool isRunning;
+   public bool isSneaking = false;
+   public bool isCrouching = false;
+   public bool isRunning = false;
    public bool isGrounded;
 }
