@@ -354,6 +354,7 @@
 -analyzer:"H:/UnityEng/2022.3.39f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/AI-Scripts/AI-ScriptableObj/AIScriptableObject.cs"
 "Assets/Scripts/AI-Scripts/AiMovement.cs"
+"Assets/Scripts/CameraMovement.cs"
 "Assets/Scripts/PlayerMovement.cs"
 "Assets/Scripts/ScriptableObj/PlayerScriptableObject.cs"
 -langversion:9.0
