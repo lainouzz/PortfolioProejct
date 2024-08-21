@@ -9,7 +9,14 @@ public class AIScriptableObject : ScriptableObject
    public float walkSpeed;
    public float runSpeed;
 
-   public bool hasSeenPlayer;
+   public float currentHealth;
+   public float maxHealth;
+   
+   public float fieldOfView;
+   public float detectRange;
+   
+   public bool isDead;
+   public bool canSeeingPlayer;
    public bool isPatrolling;
    public bool isIdling;
    public bool isChasingPlayer;
