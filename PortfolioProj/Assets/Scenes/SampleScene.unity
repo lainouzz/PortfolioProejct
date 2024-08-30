@@ -1010,7 +1010,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_Iso: 200
   m_ShutterSpeed: 0.005
   m_Aperture: 16
@@ -1057,7 +1057,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.72599995, z: -0.005}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1216,6 +1216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1113012232}
+  - component: {fileID: 1113012233}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -1232,13 +1233,31 @@ Transform:
   m_GameObject: {fileID: 1113012231}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.55, y: -0.28, z: 0.85}
+  m_LocalPosition: {x: 0.55, y: -0.28, z: 0.832}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1897095296}
   m_Father: {fileID: 963194228}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1113012233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113012231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55952a92906b75f4a91a289d843d7c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 8914968970550576626, guid: dd3b55421afc4ab48bb528bad452f81e, type: 3}
+  rb: {fileID: 1897095301}
+  bulletPrefab: {fileID: 7014906292532972203, guid: dd3b55421afc4ab48bb528bad452f81e, type: 3}
+  MuzzlePosition: {fileID: 1790270387}
+  weaponSO: {fileID: 11400000, guid: d9b935bad0a55d645aa877d0479b2b8a, type: 2}
+  distanceZ: 40
 --- !u!1 &1330988238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,7 +1917,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897095295}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55952a92906b75f4a91a289d843d7c66, type: 3}
   m_Name: 
@@ -1908,6 +1927,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7014906292532972203, guid: dd3b55421afc4ab48bb528bad452f81e, type: 3}
   MuzzlePosition: {fileID: 1790270387}
   weaponSO: {fileID: 11400000, guid: d9b935bad0a55d645aa877d0479b2b8a, type: 2}
+  distanceZ: 0
 --- !u!54 &1897095301 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 5451595323839722958, guid: c1d9fea50e1eef74386b0a5fe5f5c4b0, type: 3}

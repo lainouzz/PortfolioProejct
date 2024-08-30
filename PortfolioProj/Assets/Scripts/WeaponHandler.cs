@@ -9,6 +9,8 @@ public class WeaponHandler : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform MuzzlePosition;
     public WeaponScriptableObject weaponSO;
+
+    public float distanceZ;
     
     private bool bulletSpawn;
     // Start is called before the first frame update
@@ -31,13 +33,20 @@ public class WeaponHandler : MonoBehaviour
         GameObject newBullet = Instantiate(bulletPrefab, MuzzlePosition.position, Quaternion.identity);
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        if (bullet != null)
+        if (bulletScript != null)
         {
             Camera camera = Camera.main;
-
-            Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-            Vector3 centerWorld = camera.ScreenToWorldPoint(new Vector3(screenCenter.x, screenCenter.y, MuzzlePosition.position.z));
+            Debug.Log("Calculated distanceZ: " + distanceZ);
+            
+            Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, distanceZ);
+            Vector3 centerWorld = camera.ScreenToWorldPoint(screenCenter);
+            
+            Debug.Log("Screen Center: " + screenCenter);
+            Debug.Log("Center World Position: " + centerWorld);
+            Debug.Log("Muzzle Position: " + MuzzlePosition.position);
+            
             Vector3 dirToCenter = (centerWorld - MuzzlePosition.position).normalized;  
+            Debug.Log("Direction to Center: " + dirToCenter);
             
             bulletScript.initDirection(dirToCenter);
             bulletScript.rb.velocity = dirToCenter * bulletScript.bulletVelocity;
