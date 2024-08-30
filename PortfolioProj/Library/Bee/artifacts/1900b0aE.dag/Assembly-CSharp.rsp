@@ -373,6 +373,7 @@
 "Assets/Scripts/ScriptableObj/PlayerScriptableObject.cs"
 "Assets/Scripts/WeaponHandler.cs"
 "Assets/Scripts/Weapons/WeaponScriptableObject.cs"
+"Assets/Scripts/Weapons/WeaponSway.cs"
 -langversion:9.0
 /deterministic
 /optimize+
