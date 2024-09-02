@@ -13,4 +13,5 @@ public class WeaponScriptableObject : ScriptableObject
 
     public bool isReloading;
     public bool isShooting;
+    public bool isOutOfAmmo;
 }

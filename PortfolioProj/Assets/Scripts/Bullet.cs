@@ -32,6 +32,7 @@ public class Bullet : MonoBehaviour
     public void initDirection(Vector3 direction)
     {
         dir = direction.normalized;
+        transform.rotation = Quaternion.LookRotation(dir);
     }
     
     // Update is called once per frame
@@ -39,9 +40,13 @@ public class Bullet : MonoBehaviour
     {
         if (!hasHit)
         {
-            rb.velocity = dir * bulletVelocity;
             RaycastHit hit;
-            if (Physics.Raycast(transform.position,dir, out hit, bulletVelocity * Time.deltaTime, HitLayer))
+            
+            float distanceTraveled = bulletVelocity * Time.deltaTime;
+            rb.velocity = dir * bulletVelocity;
+            
+            transform.rotation = Quaternion.LookRotation(dir);
+            if (Physics.Raycast(transform.position,dir, out hit, distanceTraveled, HitLayer))
             {
                 bulletHit(hit);
             }
@@ -55,15 +60,12 @@ public class Bullet : MonoBehaviour
         {
             hitAiHealth.takeDamage(WeaponSO.damage);
         }
-                
         hasHit = true;
         DestroyBullet();
-
     }
 
     private void DestroyBullet()
     {
-        Debug.Log("desyoing bullet");
         Destroy(gameObject);
     }
 }

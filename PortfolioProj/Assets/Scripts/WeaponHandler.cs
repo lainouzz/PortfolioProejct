@@ -31,12 +31,12 @@ public class WeaponHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && weaponSO.ammo > 0)
         {
-            anim.SetTrigger("IsShooting");
             spawnBullet();
         }
         else if(weaponSO.ammo <= 0)
         {
             anim.SetBool("NoBullet", true);
+            weaponSO.isOutOfAmmo = true;
             weaponSO.ammo = 0;
         }
         
@@ -45,6 +45,7 @@ public class WeaponHandler : MonoBehaviour
     
     void spawnBullet()
     {
+        anim.SetTrigger("IsShooting");
         GameObject newBullet = Instantiate(bulletPrefab, MuzzlePosition.position, Quaternion.identity);
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
@@ -70,9 +71,15 @@ public class WeaponHandler : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
+                weaponSO.isReloading = true;
                 anim.SetTrigger("IsReloading");
                 weaponSO.ammo = weaponSO.maxAmmo;
-            }
+            } 
+        }
+        if (Input.GetKeyDown(KeyCode.R) && weaponSO.isOutOfAmmo)
+        {
+            anim.SetBool("NoBullet", false);
+            anim.SetTrigger("NewBullet");
         }
     }
 }

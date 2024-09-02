@@ -547,6 +547,10 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[4]
       value: 
       objectReference: {fileID: 745108228}
+    - target: {fileID: 2664485474560605173, guid: 7eb04434c9df9f649b91660c72665325, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3388129520156276544, guid: 7eb04434c9df9f649b91660c72665325, type: 3}
       propertyPath: m_Drag
       value: 1
