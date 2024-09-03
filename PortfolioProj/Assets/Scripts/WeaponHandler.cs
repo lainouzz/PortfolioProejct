@@ -6,15 +6,23 @@ using UnityEngine;
 public class WeaponHandler : MonoBehaviour
 {
     public Bullet bullet;
-    public Rigidbody rb;
-    public GameObject bulletPrefab;
-    public Transform MuzzlePosition;
-    public WeaponScriptableObject weaponSO;
-    public Animator anim;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform MuzzlePosition;
+    [SerializeField] private WeaponScriptableObject weaponSO;
+    [SerializeField] private Animator anim;
+
+    [SerializeField] private float shootDelay;
+    private float timerShootDelay;
+    
+    private Camera camera;
     
     [SerializeField] private float distanceZ;
     
     private bool bulletSpawn;
+
+    private bool canReload;
+    private bool canReloadNewBullet;
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,23 +32,30 @@ public class WeaponHandler : MonoBehaviour
     private void Start()
     {
         weaponSO.ammo = weaponSO.maxAmmo;
+        camera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Shoot();
+        Reload();
+        ReloadNewBullet();
+    }
+
+    void Shoot()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse0) && weaponSO.ammo > 0)
         {
             spawnBullet();
         }
-        else if(weaponSO.ammo <= 0)
+        if(weaponSO.ammo <= 0)
         {
             anim.SetBool("NoBullet", true);
-            weaponSO.isOutOfAmmo = true;
             weaponSO.ammo = 0;
+            weaponSO.isOutOfAmmo = true;
+            canReloadNewBullet = true;
         }
-        
-        Reload();
     }
     
     void spawnBullet()
@@ -51,8 +66,6 @@ public class WeaponHandler : MonoBehaviour
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
         if (bulletScript != null)
         {
-            Camera camera = Camera.main;
-            
             Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, distanceZ);
             Vector3 centerWorld = camera.ScreenToWorldPoint(screenCenter);
             Vector3 dirToCenter = (centerWorld - MuzzlePosition.position).normalized;  
@@ -67,8 +80,10 @@ public class WeaponHandler : MonoBehaviour
 
     void Reload()
     {
-        if (weaponSO.ammo <= 0 || weaponSO.ammo >= 0)
+        if (weaponSO.ammo >= 1 && weaponSO.ammo < weaponSO.maxAmmo )
         {
+            canReload = true;
+            canReloadNewBullet = false;
             if (Input.GetKeyDown(KeyCode.R))
             {
                 weaponSO.isReloading = true;
@@ -76,10 +91,23 @@ public class WeaponHandler : MonoBehaviour
                 weaponSO.ammo = weaponSO.maxAmmo;
             } 
         }
-        if (Input.GetKeyDown(KeyCode.R) && weaponSO.isOutOfAmmo)
+        else
         {
-            anim.SetBool("NoBullet", false);
-            anim.SetTrigger("NewBullet");
+            canReload = false;
         }
+    }
+
+    void ReloadNewBullet()
+    {
+        if (weaponSO.isOutOfAmmo && canReloadNewBullet)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                weaponSO.ammo = weaponSO.maxAmmo;
+                anim.SetTrigger("NewBullet");
+                anim.SetBool("NoBullet", false);
+            }
+        }
+
     }
 }

@@ -664,6 +664,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7eb04434c9df9f649b91660c72665325, type: 3}
+--- !u!1 &483168516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 483168518}
+  - component: {fileID: 483168517}
+  m_Layer: 0
+  m_Name: Slowmo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &483168517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483168516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e15edcd78385a4687d469567cb08e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &483168518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483168516}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -25.3556, y: 1.5360689, z: 25.201235}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &487290149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1452,6 +1496,7 @@ MonoBehaviour:
   MuzzlePosition: {fileID: 858059543}
   weaponSO: {fileID: 11400000, guid: d9b935bad0a55d645aa877d0479b2b8a, type: 2}
   anim: {fileID: 2035965530}
+  shootDelay: 1
   distanceZ: 40
 --- !u!114 &1113012234
 MonoBehaviour:
@@ -2321,3 +2366,4 @@ SceneRoots:
   - {fileID: 1730028872}
   - {fileID: 1330988239}
   - {fileID: 487290153}
+  - {fileID: 483168518}
