@@ -12,8 +12,8 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] private WeaponScriptableObject weaponSO;
     [SerializeField] private Animator anim;
 
-    [SerializeField] private float shootDelay;
-    private float timerShootDelay;
+    [SerializeField] private float fireRate;
+    private float timeSinceLastShot;
     
     private Camera camera;
     
@@ -38,18 +38,24 @@ public class WeaponHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Shoot();
+        timeSinceLastShot += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && timeSinceLastShot >= fireRate)
+        {
+            anim.SetTrigger("IsShooting");
+            timeSinceLastShot = 0;
+        }
         Reload();
         ReloadNewBullet();
     }
 
-    void Shoot()
+    public void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && weaponSO.ammo > 0)
+        if (weaponSO.ammo > 0)
         {
             spawnBullet();
         }
-        if(weaponSO.ammo <= 0)
+        else
         {
             anim.SetBool("NoBullet", true);
             weaponSO.ammo = 0;
@@ -58,9 +64,8 @@ public class WeaponHandler : MonoBehaviour
         }
     }
     
-    void spawnBullet()
+    public void spawnBullet()
     {
-        anim.SetTrigger("IsShooting");
         GameObject newBullet = Instantiate(bulletPrefab, MuzzlePosition.position, Quaternion.identity);
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
