@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouching()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C))
         {
             speed = playerData.crouchSpeed;
             controller.height = 0.35f;
