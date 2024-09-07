@@ -5,22 +5,22 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private Camera camera;
-
+    public Transform playerTransform;
+    
     [SerializeField] private float mouseXSpeed;
     [SerializeField] private float mouseYSpeed;
     [SerializeField] private float verticalRot;
     
-    [SerializeField] private int leanAngle;
+    [SerializeField] private float leanAngle;
     [SerializeField] private float leanSpeed;
     [SerializeField] private float leanDistance;
     [SerializeField] private float leanThreshold;
     
     private float mouseX;
     private float mouseY;
+    private float currentLeanAngle;
     
-    public Transform playerTransform;
-
+    private Camera camera;
     private Vector3 orignalPos;
     private Quaternion originalRot;
     
@@ -45,21 +45,21 @@ public class CameraMovement : MonoBehaviour
     private void LookX()
     {
         mouseX = Input.GetAxis("Mouse X") * mouseXSpeed;
-
         playerTransform.Rotate(Vector3.up * mouseX);
     }
     private void LookY()
     {
         mouseY = Input.GetAxis("Mouse Y") * mouseYSpeed;
-        verticalRot -= mouseY;
+        verticalRot -= mouseY; 
         verticalRot = Mathf.Clamp(verticalRot, -89, 89);
 
-        transform.localEulerAngles = Vector3.right * verticalRot;
+        Quaternion verticalRotation = Quaternion.Euler(this.verticalRot, 0 ,0);
+        transform.localRotation = verticalRotation * Quaternion.Euler(0, 0, currentLeanAngle);
     }
 
     private void Lean()
     {
-        int targetLeanAngle = 0;
+        float targetLeanAngle = 0;
         float targetXPos = 0;
         
         if (Input.GetKey(KeyCode.Q))
@@ -71,26 +71,12 @@ public class CameraMovement : MonoBehaviour
             targetLeanAngle = -leanAngle;
             targetXPos = leanDistance;
         }
-        
-        Quaternion targetRot = Quaternion.Euler(0,0, targetLeanAngle);
+
+        currentLeanAngle = Mathf.Lerp(currentLeanAngle, targetLeanAngle, leanSpeed * Time.deltaTime);
         Vector3 targetPos = orignalPos + new Vector3(targetXPos, 0, 0);
-
-        if (Quaternion.Angle(transform.localRotation, targetRot) < leanThreshold)
-        {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRot, leanSpeed * Time.deltaTime);
-        }
-       /* else
-        {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRot, leanSpeed * Time.deltaTime);
-        }*/
-
-        if (Vector3.Distance(transform.localPosition, targetPos) < leanThreshold)
-        {
-            transform.localPosition = targetPos;
-        }
-        else
-        {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, leanSpeed * Time.deltaTime);
-        }
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, leanSpeed * Time.deltaTime);
+        
+        Quaternion verticalRotation = Quaternion.Euler(verticalRot, 0 ,0 );
+        transform.localRotation = verticalRotation * Quaternion.Euler(0, 0, currentLeanAngle);
     }
 }

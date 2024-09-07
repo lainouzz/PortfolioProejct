@@ -6,21 +6,21 @@ using UnityEngine;
 public class WeaponHandler : MonoBehaviour
 {
     public Bullet bullet;
+    
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform MuzzlePosition;
     [SerializeField] private WeaponScriptableObject weaponSO;
     [SerializeField] private Animator anim;
 
+    [SerializeField] private float distanceZ;
     [SerializeField] private float fireRate;
-    private float timeSinceLastShot;
     
     private Camera camera;
     
-    [SerializeField] private float distanceZ;
+    private float timeSinceLastShot;
     
     private bool bulletSpawn;
-
     private bool canReload;
     private bool canReloadNewBullet;
     // Start is called before the first frame update

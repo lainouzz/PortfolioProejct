@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     
     private Vector3 dir;
     private AIHealth aiHealth;
+    
     private bool hasHit;
 
     private void Awake()

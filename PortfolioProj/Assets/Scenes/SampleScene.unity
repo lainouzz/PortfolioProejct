@@ -1280,7 +1280,7 @@ MonoBehaviour:
   leanAngle: 45
   leanSpeed: 10
   leanDistance: 0.3
-  leanThreshold: 0.1
+  leanThreshold: 10
   playerTransform: {fileID: 1839663230}
 --- !u!114 &963194230
 MonoBehaviour:
