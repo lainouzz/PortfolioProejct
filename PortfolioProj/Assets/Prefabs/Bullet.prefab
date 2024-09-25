@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 0.2
-  bulletVelocity: 55
+  bulletVelocity: 100
   HitLayer:
     serializedVersion: 2
     m_Bits: 4294967295
