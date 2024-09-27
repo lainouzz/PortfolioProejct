@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Unity.AI.Navigation;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -16,16 +17,20 @@ public class AiMovement : MonoBehaviour
     public float wanderIntervals;
 
     private float timer;
+    bool randomAnim;
     
     private NavMeshAgent agent;
     private Rigidbody rb;
     private NavMeshSurface surface;
+    [SerializeField]private Animator anim;
     
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        
         timer = wanderIntervals;
         aiSO.isChasingPlayer = false;
         SetRandomDestinations();
@@ -34,6 +39,20 @@ public class AiMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (agent.velocity.magnitude > 0.1f)
+        {
+            anim.SetBool("isWalking", true);
+            anim.SetBool("isIdle", false);
+        }
+        else
+        {
+            anim.SetBool("isIdle", true);
+            anim.SetBool("isWalking", false);
+            
+        }
+        
+        Attacking();
+        
         if (aiSO.isChasingPlayer)
         {
             if (!CanSeePlayer())
@@ -92,7 +111,29 @@ public class AiMovement : MonoBehaviour
 
     private void ChasePlayer()
     {
+        //var b = randomAnim != randomAnim;
         agent.SetDestination(player.position);
+        
+        anim.SetBool("isIdle", false);
+        anim.SetBool("isWalking", true);
+         
+    }
+
+    void Attacking()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) < 3f)
+        {
+            aiSO.walkSpeed = 0;
+            anim.SetBool("isAttacking", true);
+            anim.SetBool("isWalking", false);
+            Debug.Log("attacking");
+        }
+        else
+        {
+            aiSO.walkSpeed = 5;
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isWalking", true);
+        }
     }
     
     private void SetRandomDestinations()
@@ -104,23 +145,13 @@ public class AiMovement : MonoBehaviour
 
         if (!agent.hasPath)
         {
+            
             int randomIndex = Random.Range(0, patrolPoints.Length);
             Transform destination = patrolPoints[randomIndex];
 
             agent.SetDestination(destination.position);
+            agent.speed = aiSO.walkSpeed;
         }
     }
     
-    // use for later
-    private void IsIdling()
-    {
-        if (rb.velocity.x < 0.1f && rb.velocity.z < 0.1f)
-        {
-            aiSO.isIdling = true;
-        }
-        else
-        {
-            aiSO.isIdling = false;
-        }
-    }
 }

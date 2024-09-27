@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02ce97fc1ec2c34092492e7903cf595, type: 3}
   m_Name: AIScriptableObject
   m_EditorClassIdentifier: 
-  walkSpeed: 7
-  runSpeed: 13
+  walkSpeed: 5
+  runSpeed: 7
   currentHealth: 100
   maxHealth: 100
   fieldOfView: 75
@@ -21,5 +21,5 @@ MonoBehaviour:
   isDead: 0
   canSeeingPlayer: 0
   isPatrolling: 1
-  isIdling: 0
+  isIdling: 1
   isChasingPlayer: 0
