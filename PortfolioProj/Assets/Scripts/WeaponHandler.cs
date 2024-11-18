@@ -71,7 +71,7 @@ public class WeaponHandler : MonoBehaviour
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
         if (bulletScript != null)
         {
-            Vector3 screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, distanceZ);
+            Vector3 screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, camera.nearClipPlane +  distanceZ);
             Vector3 centerWorld = camera.ScreenToWorldPoint(screenCenter);
             Vector3 dirToCenter = (centerWorld - MuzzlePosition.position).normalized;  
             
